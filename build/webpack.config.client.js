@@ -1,11 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
+const webpackMerge = require('webpack-merge')
 const HTMLPlugin = require('html-webpack-plugin')
+const baseConfig = require('./webpack.config.base')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const config = {
-  // mode: 'development',
+const config = webpackMerge(baseConfig, {
+  mode: 'development',
   entry: {
     app: path.join(__dirname, '../client/app.js')
   },
@@ -14,36 +16,13 @@ const config = {
     path: path.join(__dirname, '../dist'),
     publicPath: '/public/' // 引用静态资源的前缀
   },
-  module: {
-    rules: [
-      {
-        enforce: 'pre',
-        test: /.(js|jsx)$/,
-        loader: 'eslint-loader',
-        exclude: [
-          path.join(__dirname, '../node_modules')
-        ]
-      },
-      {
-        test: /.jsx$/,
-        loader: 'babel-loader',
-      },
-      {
-        test: /.js$/,
-        loader: 'babel-loader',
-        exclude: [
-          path.join(__dirname, '../node_modules'),
-        ]
-      }
-    ]
-  },
   plugins: [
     // 生成html， 并且把entry生成的js注入html
     new HTMLPlugin({
-      template: path.join(__dirname, '../client/template.html'),
+      template: path.join(__dirname, '../client/template.html')
     })
   ]
-}
+})
 
 if (isDev) {
   config.entry = {

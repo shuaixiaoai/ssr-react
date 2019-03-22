@@ -39,14 +39,14 @@ serverCompiler.watch({}, (err, stats) => {
   // bundle 文件的输出内容， string内容， 非莫模块
   const bundle = mfs.readFileSync(bundlePath, 'utf-8')
   const m = new Module()
-  m._compile(bundle, 'server-entry.js')           // 以名字存， 名字取
-  serverBundle = m.exports.default                // commonjs2 需要module.exports
+  m._compile(bundle, 'server-entry.js') // 以名字存， 名字取
+  serverBundle = m.exports.default // commonjs2 需要module.exports
 })
 
 module.exports = (app) => {
   // 静态资源代理到本地服务
   app.use('/public', proxy({
-    target: 'http://localhost:9847',
+    target: 'http://localhost:9847'
   }))
   app.get('*', (req, res) => {
     getTemplate().then(template => {
