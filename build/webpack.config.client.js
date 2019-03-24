@@ -28,7 +28,7 @@ if (isDev) {
   config.entry = {
     app: [
       'react-hot-loader/patch',
-      path.join(__dirname, '../client/app.js'),
+      path.join(__dirname, '../client/app.js')
     ]
   }
   config.devServer = {

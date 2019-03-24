@@ -5,6 +5,9 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     publicPath: '/public/' // 引用静态资源的前缀
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   module: {
     rules: [
       {
